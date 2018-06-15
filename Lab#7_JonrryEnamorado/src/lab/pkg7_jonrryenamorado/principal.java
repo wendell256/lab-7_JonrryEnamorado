@@ -7,6 +7,7 @@ package lab.pkg7_jonrryenamorado;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -33,9 +34,6 @@ public class principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDialog1 = new javax.swing.JDialog();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jt_table = new javax.swing.JTable();
         tab = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -58,29 +56,6 @@ public class principal extends javax.swing.JFrame {
         tree = new javax.swing.JTree();
         cbcars = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
-
-        jt_table.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Carro", "Pieza", "Tiempo"
-            }
-        ));
-        jScrollPane3.setViewportView(jt_table);
-
-        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
-        jDialog1.getContentPane().setLayout(jDialog1Layout);
-        jDialog1Layout.setHorizontalGroup(
-            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDialog1Layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 608, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        jDialog1Layout.setVerticalGroup(
-            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -167,8 +142,7 @@ public class principal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel15)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel14)))
+                    .addComponent(jLabel14))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(padre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -308,29 +282,33 @@ public class principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tabStateChanged
 
+        piezas global = new piezas();
     private void cbcarsItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbcarsItemStateChanged
         // TODO add your handling code here:
-        piezas temp = new piezas();
+        global = new piezas();
         for (piezas t : pieces) {
             if (t.getNombre().equals(cbcars.getSelectedItem())) {
-                temp = t;
+                global = t;
             }
         }
-        DefaultMutableTreeNode root = new DefaultMutableTreeNode(temp);
-        listar_todo(temp, root);
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode(global);
+        listar_tree(global, root);
+        
         DefaultTreeModel m = new DefaultTreeModel(root);
         tree.setModel(m);
-
 
     }//GEN-LAST:event_cbcarsItemStateChanged
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
-        
+        psel = new ArrayList();
+        meter_array(global, psel);
+        Collections.reverse(psel);
+        System.out.println(psel);
     }//GEN-LAST:event_jButton1MouseClicked
 
     
-    public void listar_todo(piezas p_raiz, DefaultMutableTreeNode nodo) {
+    public void listar_tree(piezas p_raiz, DefaultMutableTreeNode nodo) {
         try {
             
             ArrayList<piezas> l3 = p_raiz.getPiezas();
@@ -342,7 +320,7 @@ public class principal extends javax.swing.JFrame {
                 } else {
                     DefaultMutableTreeNode n = new DefaultMutableTreeNode(temp.getNombre());
                     nodo.add(n);
-                    listar_todo(temp, n);
+                    listar_tree(temp, n);
 
                 }
             }
@@ -350,6 +328,23 @@ public class principal extends javax.swing.JFrame {
         }
     }
     
+    public void meter_array(piezas p_raiz, ArrayList<piezas> p) {
+        try {
+            
+            ArrayList<piezas> l3 = p_raiz.getPiezas();
+             
+            for (piezas temp : l3) {
+                if (temp.getPiezas().isEmpty()) {
+                    p.add(temp);
+                } else {
+                    p.add(temp);
+                    meter_array(temp, p);
+
+                }
+            }
+        } catch (Exception e) {
+        }
+    }
     
    /* public void añadir(piezas temp, DefaultMutableTreeNode m) {
         for (piezas t : temp.getPiezas()) {
@@ -422,7 +417,6 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -433,9 +427,7 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator3;
-    public javax.swing.JTable jt_table;
     private javax.swing.JTextField material;
     private javax.swing.JComboBox<String> padre;
     private javax.swing.JTextField piece;
@@ -443,6 +435,8 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JTextField time;
     private javax.swing.JTree tree;
     // End of variables declaration//GEN-END:variables
+    
+    ArrayList<piezas> psel = new ArrayList();
     ArrayList<piezas> pieces = new ArrayList();
     ArrayList<String> cars = new ArrayList();
     
