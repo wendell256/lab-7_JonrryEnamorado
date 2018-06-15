@@ -5,8 +5,11 @@
  */
 package lab.pkg7_jonrryenamorado;
 
+import java.io.File;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 /**
  *
@@ -30,8 +33,10 @@ public class principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        tabla = new javax.swing.JDialog();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jDialog1 = new javax.swing.JDialog();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jt_table = new javax.swing.JTable();
+        tab = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
@@ -49,19 +54,41 @@ public class principal extends javax.swing.JFrame {
         time = new javax.swing.JTextField();
         jButton6 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tree = new javax.swing.JTree();
+        cbcars = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
 
-        javax.swing.GroupLayout tablaLayout = new javax.swing.GroupLayout(tabla.getContentPane());
-        tabla.getContentPane().setLayout(tablaLayout);
-        tablaLayout.setHorizontalGroup(
-            tablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        jt_table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Carro", "Pieza", "Tiempo"
+            }
+        ));
+        jScrollPane3.setViewportView(jt_table);
+
+        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
+        jDialog1.getContentPane().setLayout(jDialog1Layout);
+        jDialog1Layout.setHorizontalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDialog1Layout.createSequentialGroup()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 608, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
-        tablaLayout.setVerticalGroup(
-            tablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        jDialog1Layout.setVerticalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        tab.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                tabStateChanged(evt);
+            }
+        });
 
         jLabel13.setText("Carro:");
 
@@ -104,7 +131,6 @@ public class principal extends javax.swing.JFrame {
                         .addComponent(car, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(42, 42, 42)
                         .addComponent(jButton5))
-                    .addComponent(padre, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
@@ -122,7 +148,8 @@ public class principal extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(material)
-                                    .addComponent(time))))
+                                    .addComponent(time)))
+                            .addComponent(padre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(42, 42, 42)
                         .addComponent(jButton6)))
                 .addContainerGap(52, Short.MAX_VALUE))
@@ -138,9 +165,10 @@ public class principal extends javax.swing.JFrame {
                 .addGap(67, 67, 67)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(jLabel15))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel15)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel14)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(padre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -172,7 +200,7 @@ public class principal extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 308, Short.MAX_VALUE)
+            .addGap(0, 366, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -180,30 +208,67 @@ public class principal extends javax.swing.JFrame {
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
-        jTabbedPane1.addTab("Crear", jPanel1);
+        tab.addTab("Crear", jPanel1);
+
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
+        tree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jScrollPane1.setViewportView(tree);
+
+        cbcars.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbcarsItemStateChanged(evt);
+            }
+        });
+
+        jButton1.setText("Ensamblar Carro");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 406, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(147, 147, 147)
+                        .addComponent(cbcars, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(129, 129, 129)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(155, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 308, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(cbcars, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Mostrar", jPanel4);
+        tab.addTab("Mostrar", jPanel4);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(tab)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(tab)
         );
 
         pack();
@@ -211,33 +276,110 @@ public class principal extends javax.swing.JFrame {
 
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
         // TODO add your handling code here:
-        cars.add(new carro(car.getText()));
-        DefaultComboBoxModel m = new DefaultComboBoxModel(cars.toArray());
+        cars.add(car.getText());
+        piezas p = new piezas(car.getText(), "", 0, null);
+        pieces.add(p);
+        DefaultComboBoxModel m = new DefaultComboBoxModel(pieces.toArray());
         padre.setModel(m);
+        car.setText("");
     }//GEN-LAST:event_jButton5MouseClicked
 
     private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
         // TODO add your handling code here:
-        Object o = padre.getItemAt(padre.getSelectedIndex());
-        if(o instanceof carro){
-            int x = 0;
-            for (carro t : cars) {
-                if(t.getName().equals(((carro) o).getName())){
-                    t.getPiezas().add(new piezas(piece.getText(),material.getText(),Integer.parseInt(time.getText())));
-                    DefaultComboBoxModel m = new DefaultComboBoxModel(cars.get(x).getPiezas().toArray());
-                    cars.set(x, t);
-                }
-                x++;
-            }
-        }else if(o instanceof piezas){
-            int x = 0;
-            for (carro t : cars) {
-                for (piezas  p: t.getPiezas()) {
-                    
-                }
+        piezas p = new piezas(piece.getText(), material.getText(), Integer.parseInt(time.getText()), (piezas) padre.getSelectedItem());
+
+        for (piezas t : pieces) {
+            if (t.getNombre().equals(p.getPadre().getNombre())) {
+                t.getPiezas().add(p);
             }
         }
+        pieces.add(p);
+        DefaultComboBoxModel m = (DefaultComboBoxModel) padre.getModel();
+        m.addElement(p);
+        padre.setModel(m);
+
     }//GEN-LAST:event_jButton6MouseClicked
+
+    private void tabStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabStateChanged
+        // TODO add your handling code here:
+        if (tab.getSelectedIndex() == 1) {
+            DefaultComboBoxModel m = new DefaultComboBoxModel(cars.toArray());
+            cbcars.setModel(m);
+        }
+    }//GEN-LAST:event_tabStateChanged
+
+    private void cbcarsItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbcarsItemStateChanged
+        // TODO add your handling code here:
+        piezas temp = new piezas();
+        for (piezas t : pieces) {
+            if (t.getNombre().equals(cbcars.getSelectedItem())) {
+                temp = t;
+            }
+        }
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode(temp);
+        listar_todo(temp, root);
+        DefaultTreeModel m = new DefaultTreeModel(root);
+        tree.setModel(m);
+
+
+    }//GEN-LAST:event_cbcarsItemStateChanged
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    
+    public void listar_todo(piezas p_raiz, DefaultMutableTreeNode nodo) {
+        try {
+            
+            ArrayList<piezas> l3 = p_raiz.getPiezas();
+             
+            for (piezas temp : l3) {
+                if (temp.getPiezas().isEmpty()) {
+                    DefaultMutableTreeNode n = new DefaultMutableTreeNode(temp.getNombre());
+                    nodo.add(n);
+                } else {
+                    DefaultMutableTreeNode n = new DefaultMutableTreeNode(temp.getNombre());
+                    nodo.add(n);
+                    listar_todo(temp, n);
+
+                }
+            }
+        } catch (Exception e) {
+        }
+    }
+    
+    
+   /* public void añadir(piezas temp, DefaultMutableTreeNode m) {
+        for (piezas t : temp.getPiezas()) {
+            
+            int centinela = -1;
+            if (!t.getPiezas().isEmpty()) {
+                añadir(t, m);
+            } else {
+                String nombre = t.getPadre().getNombre();
+                for (int i = 0; i < m.getChildCount(); i++) {
+                    if (m.getChildAt(i).toString().equals(nombre)) {
+                        DefaultMutableTreeNode p = new DefaultMutableTreeNode(t);
+                        ((DefaultMutableTreeNode) m.getChildAt(i)).add(p);
+                    centinela = 1;
+                    }
+
+                }
+                if(centinela == -1){
+                    DefaultMutableTreeNode padres = new DefaultMutableTreeNode(t.getPadre());
+                    DefaultMutableTreeNode hijo = new DefaultMutableTreeNode(t);
+                    padres.add(hijo);
+                    m.add(padres);
+                    
+                }
+
+
+
+            }
+        }
+    }*/
 
     /**
      * @param args the command line arguments
@@ -276,8 +418,11 @@ public class principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField car;
+    private javax.swing.JComboBox<String> cbcars;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -287,14 +432,18 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    public javax.swing.JTable jt_table;
     private javax.swing.JTextField material;
     private javax.swing.JComboBox<String> padre;
     private javax.swing.JTextField piece;
-    private javax.swing.JDialog tabla;
+    private javax.swing.JTabbedPane tab;
     private javax.swing.JTextField time;
+    private javax.swing.JTree tree;
     // End of variables declaration//GEN-END:variables
-    ArrayList<carro> cars = new ArrayList();
+    ArrayList<piezas> pieces = new ArrayList();
+    ArrayList<String> cars = new ArrayList();
     
 }

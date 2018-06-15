@@ -15,10 +15,26 @@ public class piezas {
     private String nombre;
     private String material;
     private double tiempo;
+    private piezas padre;
     private ArrayList<piezas> piezas = new ArrayList();
     public piezas() {
     }
 
+    public piezas(String nombre, String material, double tiempo, piezas padre) {
+        this.nombre = nombre;
+        this.material = material;
+        this.tiempo = tiempo;
+        this.padre = padre;
+    }
+
+    public piezas getPadre() {
+        return padre;
+    }
+
+    public void setPadre(piezas padre) {
+        this.padre = padre;
+    }
+    
     public ArrayList<piezas> getPiezas() {
         return piezas;
     }

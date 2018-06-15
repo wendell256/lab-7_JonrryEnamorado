@@ -40,7 +40,7 @@ public class carro {
 
     @Override
     public String toString() {
-        return name;
+        return name + piezas;
     }
     
     
