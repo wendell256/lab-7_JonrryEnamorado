@@ -327,7 +327,7 @@ public class principal extends javax.swing.JFrame {
         t.table1.setVisible(true);
         at = new adminTabla(psel, cbcars.getSelectedItem().toString(), t.table1);
         TD = new Thread(at);
-        at.run();
+        at.start();
 
     }//GEN-LAST:event_jButton1MouseClicked
 
