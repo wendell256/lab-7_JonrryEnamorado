@@ -16,6 +16,7 @@ public class Tabla extends javax.swing.JFrame {
      */
     public Tabla() {
         initComponents();
+        this.table1.setVisible(true);
     }
 
     /**
@@ -30,7 +31,7 @@ public class Tabla extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         table1 = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         table1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -46,9 +47,10 @@ public class Tabla extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

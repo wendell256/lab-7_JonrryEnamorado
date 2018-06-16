@@ -23,6 +23,7 @@ public class principal extends javax.swing.JFrame {
      */
     public principal() {
         initComponents();
+
     }
 
     /**
@@ -34,6 +35,8 @@ public class principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        del = new javax.swing.JPopupMenu();
+        eliminar = new javax.swing.JMenuItem();
         tab = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -56,6 +59,14 @@ public class principal extends javax.swing.JFrame {
         tree = new javax.swing.JTree();
         cbcars = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
+
+        eliminar.setText("Eliminar");
+        eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarActionPerformed(evt);
+            }
+        });
+        del.add(eliminar);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -186,6 +197,11 @@ public class principal extends javax.swing.JFrame {
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         tree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        tree.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                treeMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tree);
 
         cbcars.addItemListener(new java.awt.event.ItemListener() {
@@ -282,7 +298,7 @@ public class principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tabStateChanged
 
-        piezas global = new piezas();
+    piezas global = new piezas();
     private void cbcarsItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbcarsItemStateChanged
         // TODO add your handling code here:
         global = new piezas();
@@ -293,26 +309,52 @@ public class principal extends javax.swing.JFrame {
         }
         DefaultMutableTreeNode root = new DefaultMutableTreeNode(global);
         listar_tree(global, root);
-        
+
         DefaultTreeModel m = new DefaultTreeModel(root);
         tree.setModel(m);
+
+        psel = new ArrayList();
+        meter_array(global, psel);
+        Collections.reverse(psel);
+
 
     }//GEN-LAST:event_cbcarsItemStateChanged
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
-        psel = new ArrayList();
-        meter_array(global, psel);
-        Collections.reverse(psel);
-        System.out.println(psel);
+        Tabla t = new Tabla();
+        t.setVisible(true);
+        t.table1.setVisible(true);
+        at = new adminTabla(psel, cbcars.getSelectedItem().toString(), t.table1);
+        TD = new Thread(at);
+        at.run();
+
     }//GEN-LAST:event_jButton1MouseClicked
 
-    
+    private void treeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_treeMouseClicked
+        // TODO add your handling code here:
+        if (evt.isMetaDown()) {
+            int row = tree.getClosestRowForLocation(evt.getX(), evt.getY());
+            tree.setSelectionRow(row);
+            Object v1 = tree.getSelectionPath().getLastPathComponent();
+            nodo_seleccionado = (DefaultMutableTreeNode) v1;
+
+            del.show(evt.getComponent(), evt.getX(), evt.getY());
+
+        }
+    }//GEN-LAST:event_treeMouseClicked
+
+    private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
+        // TODO add your handling code here:
+        DefaultTreeModel m = (DefaultTreeModel) tree.getModel();
+        m.removeNodeFromParent(nodo_seleccionado);
+    }//GEN-LAST:event_eliminarActionPerformed
+
     public void listar_tree(piezas p_raiz, DefaultMutableTreeNode nodo) {
         try {
-            
+
             ArrayList<piezas> l3 = p_raiz.getPiezas();
-             
+
             for (piezas temp : l3) {
                 if (temp.getPiezas().isEmpty()) {
                     DefaultMutableTreeNode n = new DefaultMutableTreeNode(temp.getNombre());
@@ -327,12 +369,12 @@ public class principal extends javax.swing.JFrame {
         } catch (Exception e) {
         }
     }
-    
+
     public void meter_array(piezas p_raiz, ArrayList<piezas> p) {
         try {
-            
+
             ArrayList<piezas> l3 = p_raiz.getPiezas();
-             
+
             for (piezas temp : l3) {
                 if (temp.getPiezas().isEmpty()) {
                     p.add(temp);
@@ -345,8 +387,8 @@ public class principal extends javax.swing.JFrame {
         } catch (Exception e) {
         }
     }
-    
-   /* public void añadir(piezas temp, DefaultMutableTreeNode m) {
+
+    /* public void añadir(piezas temp, DefaultMutableTreeNode m) {
         for (piezas t : temp.getPiezas()) {
             
             int centinela = -1;
@@ -375,7 +417,6 @@ public class principal extends javax.swing.JFrame {
             }
         }
     }*/
-
     /**
      * @param args the command line arguments
      */
@@ -414,6 +455,8 @@ public class principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField car;
     private javax.swing.JComboBox<String> cbcars;
+    private javax.swing.JPopupMenu del;
+    private javax.swing.JMenuItem eliminar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
@@ -435,9 +478,11 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JTextField time;
     private javax.swing.JTree tree;
     // End of variables declaration//GEN-END:variables
-    
+
     ArrayList<piezas> psel = new ArrayList();
     ArrayList<piezas> pieces = new ArrayList();
     ArrayList<String> cars = new ArrayList();
-    
+    DefaultMutableTreeNode nodo_seleccionado;
+    adminTabla at;
+    Thread TD;
 }
